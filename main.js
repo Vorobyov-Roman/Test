@@ -14,13 +14,6 @@ $(document).ready(function(){
 		down: 	($(document).height() - $('#obj').height()) / step
 	};
 
-	var keycode = {
-		left:	37,
-		up: 	38,
-		right: 	39,
-		down: 	40
-	};
-
 	var move = {
 		37: function(){ if (this.x > bond.left) this.x--; },
 		38: function(){ if (this.y > bond.up) this.y--; },
@@ -29,7 +22,7 @@ $(document).ready(function(){
 	};
 
 	$(document).keydown(function(key){
-		move[key].call(obj);
+		move[key.which].call(obj);
 
 		$('#block').offset({ left: obj.x * step, top: obj.y * step });
 	});
