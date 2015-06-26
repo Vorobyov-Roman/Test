@@ -3,6 +3,7 @@ $(document).ready(function(){
 	var block = $('#block');
 
 	var ratio = 10;
+	var step = 1;
 
 	var obj = {
 		x: 1,
@@ -22,10 +23,10 @@ $(document).ready(function(){
 	};
 
 	var move = {
-		37: function(){ if (this.left - ratio > bound.left) this.x--; },
-		38: function(){ if (this.top - ratio > bound.top) this.y--; },
-		39: function(){ if (this.right < bound.right) this.x++; },
-		40: function(){	if (this.bottom < bound.bottom) this.y++; }
+		37: function(){ if (this.left - step * ratio > bound.left) this.x -= step; },
+		38: function(){ if (this.top - step * ratio > bound.top) this.y -= step; },
+		39: function(){ if (this.right < bound.right) this.x += step; },
+		40: function(){	if (this.bottom < bound.bottom) this.y += step; }
 	};
 
 	$(document).keydown(function(key){
