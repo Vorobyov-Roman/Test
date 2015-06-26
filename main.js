@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 	var box = $('#box');
+	var block = $('#block');
 
 	var ratio = 10;
 
@@ -10,8 +11,8 @@ $(document).ready(function(){
 		
 		get left(){ return this.x * ratio; },
 		get top(){ return this.y * ratio; },
-		get right(){ return this.x * ratio + $('#block').width(); },
-		get bottom(){ return this.y * ratio + $('#block').height(); }
+		get right(){ return this.x * ratio + block.width(); },
+		get bottom(){ return this.y * ratio + block.height(); }
 	};
 
 	var bond = {
@@ -31,6 +32,6 @@ $(document).ready(function(){
 	$(document).keydown(function(key){
 		move[key.which].call(obj);
 
-		$('#block').offset({ left: obj.x * ratio, top: obj.y * ratio });
+		block.offset({ left: obj.left, top: obj.top });
 	});
 });
