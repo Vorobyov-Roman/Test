@@ -21,24 +21,15 @@ $(document).ready(function(){
 		down: 	40
 	};
 
-	function moveLeft(){
-		if (this.x > bond.left) this.x--;
-	}
-	function moveUp(){
-		if (this.y > bond.up) this.y--;
-	}
-	function moveRight(){
-		if (this.x < bond.right) this.x++;
-	}
-	function moveDown(){
-		if (this.y < bond.down) this.y++;
-	}
+	var move = {
+		37: function(){ if (this.x > bond.left) this.x--; },
+		38: function(){ if (this.y > bond.up) this.y--; },
+		39: function(){ if (this.x < bond.right) this.x++; },
+		40: function(){ if (this.y < bond.down) this.y++; }
+	};
 
 	$(document).keydown(function(key){
-		if (key.which == keycode.left) moveLeft.call(obj);
-		else if (key.which == keycode.up) moveUp.call(obj);
-		else if (key.which == keycode.right) moveRight.call(obj);
-		else if (key.which == keycode.down) moveDown.call(obj);
+		move[key].call(obj);
 
 		$('#block').offset({ left: obj.x * step, top: obj.y * step });
 	});
