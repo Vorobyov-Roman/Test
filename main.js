@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	var box = $('#box');
 	var block = $('#block');
 
@@ -15,7 +14,7 @@ $(document).ready(function(){
 		get bottom(){ return this.y * ratio + block.height(); }
 	};
 
-	var bond = {
+	var bound = {
 		get left(){ return box.offset().left; },
 		get top(){ return box.offset().top; },
 		get right(){ return box.width(); },
@@ -23,15 +22,19 @@ $(document).ready(function(){
 	};
 
 	var move = {
-		37: function(){ if (this.left - ratio > bond.left) this.x--; },
-		38: function(){ if (this.top - ratio > bond.top) this.y--; },
-		39: function(){ if (this.right < bond.right) this.x++; },
-		40: function(){	if (this.bottom < bond.bottom) this.y++; }
+		37: function(){ if (this.left - ratio > bound.left) this.x--; },
+		38: function(){ if (this.top - ratio > bound.top) this.y--; },
+		39: function(){ if (this.right < bound.right) this.x++; },
+		40: function(){	if (this.bottom < bound.bottom) this.y++; }
 	};
 
 	$(document).keydown(function(key){
-		move[key.which].call(obj);
-
-		block.offset({ left: obj.left, top: obj.top });
+		try {
+			move[key.which].call(obj);
+			block.offset({ left: obj.left, top: obj.top });
+		} catch(e){
+			//exception is thrown due to handler of keypress being non existent
+			//this is an expected behaviour
+		};
 	});
 });
