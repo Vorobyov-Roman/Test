@@ -2,12 +2,12 @@ $(document).ready(function(){
 	var box = $('#box');
 	var block = $('#block');
 
-	var ratio = 10;
+	var ratio = box.height() / 100;
 	var step = 1;
 
 	var obj = {
-		x: 1,
-		y: 1,
+		x: 0,
+		y: 0,
 		
 		get left(){ return this.x * ratio; },
 		get top(){ return this.y * ratio; },
@@ -16,26 +16,26 @@ $(document).ready(function(){
 	};
 
 	var bound = {
-		get left(){ return box.offset().left; },
-		get top(){ return box.offset().top; },
+		get left(){ return box.position().left; },
+		get top(){ return box.position().top; },
 		get right(){ return box.width(); },
 		get bottom(){ return box.height(); }
 	};
 
 	var move = {
-		37: function(){ if (this.left - step * ratio > bound.left) this.x -= step; },
-		38: function(){ if (this.top - step * ratio > bound.top) this.y -= step; },
-		39: function(){ if (this.right < bound.right) this.x += step; },
-		40: function(){	if (this.bottom < bound.bottom) this.y += step; }
+		37: function(){ if (this.x >= step) this.x -= step; },
+		38: function(){ if (this.y >= step) this.y -= step; },
+		39: function(){ if (this.right + step * ratio < bound.right) this.x += step; },
+		40: function(){	if (this.bottom + step * ratio < bound.bottom) this.y += step; }
 	};
 
 	$(document).keydown(function(key){
 		try {
 			move[key.which].call(obj);
-			block.offset({ left: obj.left, top: obj.top });
+			block.css({ top: obj.top, left: obj.left });
 		} catch(e){
 			//exception is thrown due to handler of keypress being non existent
 			//this is an expected behaviour
-		};
+		}
 	});
 });
