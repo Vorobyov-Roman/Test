@@ -1,1 +1,1 @@
-Purely for tracking my progress in learning JS.
+Square moves as user presses keys on his keyboard
