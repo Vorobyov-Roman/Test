@@ -1,41 +1,35 @@
 $(document).ready(function(){
-	var box = $('#box');
-	var block = $('#block');
-
-	var ratio = box.height() / 100;
-	var step = 1;
-
-	var obj = {
-		x: 0,
-		y: 0,
-		
-		get left(){ return this.x * ratio; },
-		get top(){ return this.y * ratio; },
-		get right(){ return this.x * ratio + block.width(); },
-		get bottom(){ return this.y * ratio + block.height(); }
+	function ObjectOnAPage(nameID){
+		this.object = $('#' + nameID);
+	};
+	ObjectOnAPage.prototype = {
+		get left(){ return this.object.position().left; },
+		get top(){ return this.object.position().top; },
+		get right(){ return this.object.position().left + this.object.width(); },
+		get bottom(){ return this.object.position().top + this.object.height(); },
 	};
 
-	var bound = {
-		get left(){ return box.position().left; },
-		get top(){ return box.position().top; },
-		get right(){ return box.width(); },
-		get bottom(){ return box.height(); }
+	var block = new ObjectOnAPage('block');
+	var box = new ObjectOnAPage('box');
+
+	var obj = {
+		x:	0,
+		y:	0
 	};
 
 	var move = {
-		37: function(){ if (this.x >= step) this.x -= step; },
-		38: function(){ if (this.y >= step) this.y -= step; },
-		39: function(){ if (this.right + step * ratio < bound.right) this.x += step; },
-		40: function(){	if (this.bottom + step * ratio < bound.bottom) this.y += step; }
+		37:	function(){ if(block.left > box.left) this.x-- },
+		38:	function(){ if(block.top > box.top) this.y-- },
+		39:	function(){ if(block.right < box.right) this.x++ },
+		40:	function(){ if(block.bottom < box.bottom) this.y++ },
 	};
 
 	$(document).keydown(function(key){
 		try {
 			move[key.which].call(obj);
-			block.css({ top: obj.top, left: obj.left });
-		} catch(e){
-			//exception is thrown due to handler of keypress being non existent
-			//this is an expected behaviour
+			block.object.css({ top: obj.y, left: obj.x });
+		} catch(e) {
+			//"handle" other keys
 		}
 	});
 });
