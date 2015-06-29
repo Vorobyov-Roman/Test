@@ -3,10 +3,10 @@ $(document).ready(function(){
 		this.object = $('#' + nameID);
 	};
 	ObjectOnAPage.prototype = {
-		get left(){ return this.object.position().left; },
-		get top(){ return this.object.position().top; },
-		get right(){ return this.object.position().left + this.object.width(); },
-		get bottom(){ return this.object.position().top + this.object.height(); },
+		get left(){ return this.object.offset().left; },
+		get top(){ return this.object.offset().top; },
+		get right(){ return this.object.offset().left + this.object.width(); },
+		get bottom(){ return this.object.offset().top + this.object.height(); },
 	};
 
 	var block = new ObjectOnAPage('block');
@@ -23,10 +23,18 @@ $(document).ready(function(){
 
 		setMovement: function(key, value){
 			switch (key) {
-			case 37: obj.movingLeft = value; break;
-			case 38: obj.movingUp = value; break;
-			case 39: obj.movingRight = value; break;
-			case 40: obj.movingDown = value; break;
+			case 37:
+				obj.movingLeft = value;
+				break;
+			case 38:
+				obj.movingUp = value;
+				break;
+			case 39:
+				obj.movingRight = value;
+				break;
+			case 40:
+				obj.movingDown = value;
+				break;
 			}
 		}
 	};
@@ -39,8 +47,8 @@ $(document).ready(function(){
 	});
 
 	var move = {
-		left:  function(){ if (block.left > box.left) this.x-- },
-		up:    function(){ if (block.top > box.top) this.y-- },
+		left:  function(){ if (block.left > box.left + 1) this.x-- },
+		up:    function(){ if (block.top > box.top + 1) this.y-- },
 		right: function(){ if (block.right < box.right) this.x++ },
 		down:  function(){ if (block.bottom < box.bottom) this.y++ },
 	};
