@@ -3,16 +3,14 @@ $(document).ready(function(){
 		this.object = $('#' + nameID);
 	};
 	ObjectOnAPage.prototype = {
-		get left(){ return this.object.offset().left; },
-		get top(){ return this.object.offset().top; },
-		get right(){ return this.object.offset().left + this.object.width(); },
+		get left()  { return this.object.offset().left; },
+		get top()   { return this.object.offset().top; },
+		get right() { return this.object.offset().left + this.object.width(); },
 		get bottom(){ return this.object.offset().top + this.object.height(); },
 	};
 
 	var block = new ObjectOnAPage('block');
 	var box = new ObjectOnAPage('box');
-
-	var scale = 1;
 
 	var obj = {
 		x: 0,
@@ -41,9 +39,6 @@ $(document).ready(function(){
 		}
 	};
 
-	$(document).keydown(function(key){ obj.setMovement(key.which, true); });
-	$(document).keyup(function(key){ obj.setMovement(key.which, false); });
-
 	var move = {
 		left:  function(){ if (block.left > box.left + 1) this.x--; },
 		up:    function(){ if (block.top > box.top + 1) this.y--; },
@@ -51,12 +46,15 @@ $(document).ready(function(){
 		down:  function(){ if (block.bottom < box.bottom) this.y++; },
 	};
 
+	$(document).keydown(function(key){ obj.setMovement(key.which, true); });
+	$(document).keyup(function(key){ obj.setMovement(key.which, false); });
+
 	setInterval(function(){
 		if (obj.movingLeft)  move.left.call(obj);
 		if (obj.movingUp)    move.up.call(obj);
 		if (obj.movingRight) move.right.call(obj);
 		if (obj.movingDown)  move.down.call(obj);
 
-		block.object.css({ top: obj.y * scale, left: obj.x * scale });
+		block.object.css({ top: obj.y, left: obj.x });
 	}, 1);
 });
