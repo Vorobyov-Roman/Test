@@ -23,14 +23,10 @@ $(document).ready(function(){
 
 		setMovement: function(key, value){
 			switch (key) {
-			case 37: obj.movingLeft = value;
-				break;
-			case 38: obj.movingUp = value;
-				break;
-			case 39: obj.movingRight = value;
-				break;
-			case 40: obj.movingDown = value;
-				break;
+			case 37: obj.movingLeft = value; break;
+			case 38: obj.movingUp = value; break;
+			case 39: obj.movingRight = value; break;
+			case 40: obj.movingDown = value; break;
 			}
 		}
 	};
@@ -50,10 +46,10 @@ $(document).ready(function(){
 	};
 
 	setInterval(function(){
-		if (obj.movingLeft) move.left.call(obj);
-		if (obj.movingUp) move.up.call(obj);
+		if (obj.movingLeft)  move.left.call(obj);
+		if (obj.movingUp)    move.up.call(obj);
 		if (obj.movingRight) move.right.call(obj);
-		if (obj.movingDown) move.down.call(obj);
+		if (obj.movingDown)  move.down.call(obj);
 
 		block.object.css({ top: obj.y, left: obj.x });
 	}, 30);
