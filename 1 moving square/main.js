@@ -20,7 +20,27 @@ $(document).ready(function(){
 		movingUp: false,
 		movingRight: false,
 		movingDown: false,
+
+		setMovement: function(key, value){
+			switch (key) {
+			case 37: obj.movingLeft = value;
+				break;
+			case 38: obj.movingUp = value;
+				break;
+			case 39: obj.movingRight = value;
+				break;
+			case 40: obj.movingDown = value;
+				break;
+			}
+		}
 	};
+
+	$(document).keydown(function(key){
+		obj.setMovement(key.which, true);
+	});
+	$(document).keyup(function(key){
+		obj.setMovement(key.which, false);
+	});
 
 	var move = {
 		left:  function(){ if (block.left > box.left) this.x-- },
@@ -29,50 +49,12 @@ $(document).ready(function(){
 		down:  function(){ if (block.bottom < box.bottom) this.y++ },
 	};
 
-	$(document).keydown(function(key){
-		switch (key.which) {
-		case 37: obj.movingLeft = true;
-			break;
-		case 38: obj.movingUp = true;
-			break;
-		case 39: obj.movingRight = true;
-			break;
-		case 40: obj.movingDown = true;
-			break;
-		}
-	});
-	$(document).keyup(function(key){
-		switch (key.which) {
-		case 37: obj.movingLeft = false;
-			break;
-		case 38: obj.movingUp = false;
-			break;
-		case 39: obj.movingRight = false;
-			break;
-		case 40: obj.movingDown = false;
-			break;
-		}
-	});
-
-	var tick = function() {
+	setInterval(function(){
 		if (obj.movingLeft) move.left.call(obj);
 		if (obj.movingUp) move.up.call(obj);
 		if (obj.movingRight) move.right.call(obj);
 		if (obj.movingDown) move.down.call(obj);
 
 		block.object.css({ top: obj.y, left: obj.x });
-
-		setTimeout(tick, 30);
-	};
-
-	tick();
-
-//	setTimeout(function(){
-//		if (obj.movingLeft) move.left.call(obj);
-//		if (obj.movingUp) move.up.call(obj);
-//		if (obj.movingRight) move.right.call(obj);
-//		if (obj.movingDown) move.down.call(obj);
-//
-//		block.object.css({ top: obj.y, left: obj.x });
-//	}, 30);
+	}, 30);
 });
