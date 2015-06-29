@@ -1,16 +1,16 @@
 $(document).ready(function(){
-	function ObjectOnAPage(nameID){
+	function Element(nameID){
 		this.object = $('#' + nameID);
 	};
-	ObjectOnAPage.prototype = {
+	Element.prototype = {
 		get left()  { return this.object.offset().left; },
 		get top()   { return this.object.offset().top; },
 		get right() { return this.object.offset().left + this.object.width(); },
 		get bottom(){ return this.object.offset().top + this.object.height(); },
 	};
 
-	var block = new ObjectOnAPage('block');
-	var box = new ObjectOnAPage('box');
+	var block = new Element('block');
+	var box =   new Element('box');
 
 	var obj = {
 		x: 0,
