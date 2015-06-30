@@ -4,9 +4,9 @@ $(document).ready(function(){
 	    EAST  = 39,
 	    SOUTH = 40;
 
-	function Node(){
+	function Node(nextNode){
 		this.domObj = $('#box').append('<div class="block"></div>');
-		this.next   = null;
+		this.next   = nextNode || null;
 	};
 
 	var snake = {
@@ -20,10 +20,10 @@ $(document).ready(function(){
 		direction: {
 			value: null,
 
-			get(){
+			get: function(){
 				return this.value;
 			},
-			set(newVal){
+			set: function(newVal){
 				switch (this.value){
 				case WEST:
 					if (newVal == EAST)
@@ -74,11 +74,16 @@ $(document).ready(function(){
 				break;
 			}
 
-			this.head.domObj.css({ top: this.position.y, left: this.poition.x });
+			this.head.domObj.css({ top: this.position.y * 30, left: this.poition.x * 30 });
 		},
 
 		init: function(){
+			this.tail = new Node();
+			this.head = this.tail;
+//			this.tail.domObj.css({ top: '30px', left: '0px' });
 
+			this.position = { x: 0, y: 0 };
+			this.direction = EAST;
 		}
 	};
 
@@ -89,5 +94,5 @@ $(document).ready(function(){
 			snake.changeDirection(key.which);
 	});
 
-//	setInterval(snake.move(), 500);
+//	setInterval(snake.move(false), 500);
 });
