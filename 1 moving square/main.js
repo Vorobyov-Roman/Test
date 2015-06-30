@@ -10,8 +10,8 @@ $(document).ready(function(){
 	};
 
 	var block = new Element('block');
-	var box =   new Element('box');
-
+	var box   = new Element('box');
+	
 	var obj = {
 		x: 0,
 		y: 0,
